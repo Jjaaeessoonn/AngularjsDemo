@@ -1,0 +1,43 @@
+body {
+	background: #eee;
+}
+.container {
+	/*border: 1px solid red;*/
+	font-family: "Times New Roman", Helvetica, Sans-Serif;
+	font-size: medium;
+
+}
+nav {
+	
+	border: 1px solid black;
+	border-radius: 8px;
+	overflow: hidden;
+	
+	a {
+		float: left;
+		max-width: 120px;
+		padding: 0.5em;
+		text-decoration: none;
+		vertical-align: middle;
+		/*border: 2px solid black;*/
+		margin: 1px;
+	}
+}
+header {
+	text-align: center;
+	width: 100%;
+	background-color: black;
+	color: white;
+	padding: 0.5em;
+	font-size: 20px;
+}
+
+ul {
+	list-style-type: none;
+	overflow: auto;
+	padding: 0.3em;
+	border: 1px solid black;
+	border-radius: 8px;
+	height: 160px;
+
+}

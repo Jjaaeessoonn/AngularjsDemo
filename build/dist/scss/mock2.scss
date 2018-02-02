@@ -1,0 +1,16 @@
+ul {
+	li.orders {
+		border: 1px solid blue;
+		border-radius: 8px;
+		background-color: lightgrey;
+		padding: 0.5em;
+		margin: 2px;
+		width: 93%;
+		height: 30px;
+	}
+}
+div.orders ul {
+	width: 300px;
+	height: 300px;
+	clear: right;
+}

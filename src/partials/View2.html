@@ -1,0 +1,12 @@
+<div class="container">
+	<h2>Order History</h2>
+	Search:
+	<br />
+	<input type="text" ng-model="search" />
+	<br />
+	<div class="orders">
+		<ul>
+			<li ng-repeat="ord in orders | filter:search | orderBy: 'title'" class="orders">{{ord.title + " - " + ord.name + " "+ord.date}}</li>
+		</ul>
+	</div>
+</div>

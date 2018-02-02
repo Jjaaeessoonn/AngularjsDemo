@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<base href="/">
+	<title>AngularJS Demo</title>
+	<link type="text/css" ref="stylesheet" href="./css/main.css">
+</head>
+<body ng-app="app">
+	<header>
+		<h1>Customer Dashboard</h1>
+	</header>
+	<br />
+	
+	<nav>
+		<a href="#!">View 1</a>
+		<a href="#!view2">View 2</a>
+	</nav>
+	<br />
+	<br />
+
+	<div ng-view></div>
+	
+
+	<script src="scripts/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.min.js"></script>
+	<!--<script src="app/app.module.js"></script>
+	<script src="app/services/app.services.factory.js"></script>-->
+	<!--<script src="app/app.config.js"></script>-->
+	<!--<script src="app/controllers/app.controllers.controller.js"></script>-->
+	<script>
+		var app = angular.module("app", ["ngRoute", "angularCSS"]);
+
+		app.factory("simpleFactory", simpleFactory);
+			
+			function simpleFactory(){
+				var factory = {};
+				var customers = [
+					{name: "John Smith", city: "Phoenix"},
+					{name: "John Doe", city: "New York"},
+					{name: "Jane Doe", city: "San Francisco"}
+				];
+				var orders = [
+					{title: "Shipping of flowers", name: customers[1].name, date: "12-12-2017"},
+					{title: "Shipping of flowers", name: "Coco", date: "11-05-2017"},
+					{title: "Shipping of flowers", name: customers[2].name, date: "01-05-2018"}
+				];
+
+				factory.getCustomers = function() {
+					return customers;
+				};
+				factory.getOrders = function() {
+					return orders;
+				};
+				return factory;
+			}
+
+		app.config(routing);
+
+			//routing.$inject = ['$routeProvider'];
+
+			function routing($routeProvider) {
+				$routeProvider
+					.when('/', {
+						controller: 'simpleController',
+						templateUrl: 'partials/View1.html',
+						css: 'css/main.css'
+					})
+					.when('/view2', {
+						controller: 'simpleController',
+						templateUrl: 'partials/View2.html',
+						css: 'css/main.css'
+					})
+					.otherwise({ redirectTo: '/' });
+			}
+
+
+
+		app.controller("simpleController", simpleController);
+
+			//simpleController.$inject = ['$scope','simpleFactory'];
+			
+			function simpleController($scope, simpleFactory) {
+				$scope.customers = simpleFactory.getCustomers();
+				$scope.orders = simpleFactory.getOrders();
+
+				$scope.addCustomer = function() {
+					$scope.customers.push(
+						{
+							name: $scope.newCustomer.name,
+							city: $scope.newCustomer.city
+						}
+					);
+				};
+				$scope.removeCustomer = function(cust) {
+					var temp = {};
+					var counter = 0;
+					for (var x in $scope.customers) {
+						if (x.name == cust) {
+							temp = x;
+						}
+						counter++;
+
+					}
+					if (Object.keys(temp).length === 0 && temp.constructor === Object) {
+						return;  // no matching entries
+					}
+					$scope.customers.splice(counter, 0);
+				};
+
+				
+			}
+	</script>
+</body>
+</html>
