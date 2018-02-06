@@ -8,32 +8,34 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync').create();
 
 
-gulp.task('serve', ['styles', 'scripts', 'move'], function(){
+gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], function(){
 	browserSync.init({
 		server: "./build/dist"
 	});
 
-	gulp.watch("./src/scss/*.scss", ['styles']);
+	gulp.watch('src/scss/*.scss', ['styles']);
 	gulp.watch('src/app/**/*.js', ['scripts']);
-	gulp.watch("./src/*.html")
+	gulp.watch('src/*.html')
 		.on('change', function(){
 			browserSync.reload;
-			gulp.start('move');
+			gulp.start('html');
 		});
-	gulp.watch("./src/partials/*.html")
+	gulp.watch('src/partials/*.html')
 		.on('change', function(){
 			browserSync.reload;
-			gulp.start('move');
+			gulp.start('partialViews');
 		});
 });
 
-
+// JS
 gulp.task('scripts', function(){
 	gulp.src('src/app/**/*.js')  //ask how to change this to include all children directories too
 	.pipe(uglify())
 	.pipe(gulp.dest('build/dist/app'));
 });
 
+
+// SASS/CSS
 gulp.task('styles', function(){
 	return gulp.src('src/scss/*.scss')
 		.pipe(concat('main.css'))
@@ -42,14 +44,21 @@ gulp.task('styles', function(){
 		.pipe(browserSync.stream());
 });
 
-// need a task to transfer files into build/dist folder!
-gulp.task('move', function(){
+// INDEX HTML
+gulp.task('html', function(){
 	gulp.src('src/*.html')
 	.pipe(gulp.dest('build/dist'));
-	
+});
+
+
+// PARTIALVIEWS HTML
+gulp.task('partialViews', function(){
 	gulp.src('src/partials/**/*.*')
 	.pipe(gulp.dest('build/dist/partials'));
+});
 
+// need a task to transfer files into build/dist folder!
+gulp.task('copy', function(){
 	gulp.src('src/scripts/**/*.*')
 	.pipe(gulp.dest('build/dist/scripts'));
 

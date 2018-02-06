@@ -4,24 +4,30 @@
 	<br />
 	Search Customer:
 	<br />
-	<input type="text" ng-model="name" />
-	<button type="button" ng-click="removeCustomer(name)">Remove</button>
+	<input type="text" ng-model="vm.name" />
+	<button type="button" ng-click="vm.removeCustomer()">Remove</button>
 	<br />
-	<div class="customers">
+	<div class="container">
 		<ul>
-			<li ng-repeat="cust in customers | filter:name | orderBy: 'name'" class="people">{{cust.name + " - " + cust.city}}</li>
+			<li ng-repeat="cust in vm.customers | filter:vm.name | orderBy: 'name'" class="people">{{cust.name + " - " + cust.city}}</li>
 		</ul>
 	</div>
 
 	<br />
-	Customer Name:<br />
-	<input type="text" ng-model="newCustomer.name" />
-	<br />
-	Customer City:<br />
-	<input type="text" ng-model="newCustomer.city" />
-	<br />
-	<button ng-click="addCustomer()">Add Customer</button>
-	<br />
+
+	<form>
+		<fieldset>
+			<legend>Add Customer</legend>
+			Customer Name:<br />
+			<input type="text" ng-model="vm.newCustomer.name" />
+			<br />
+			Customer City:<br />
+			<input type="text" ng-model="vm.newCustomer.city" />
+			<br />
+			<br />
+			<button ng-click="vm.addCustomer()">Add</button>
+		</fieldset>
+	</form>
 	
 	
 </div>

@@ -1,1 +1,1 @@
-angular.module("app",["ngRoute"]);
+"use strict";angular.module("app",["ngRoute","angularCSS"]);

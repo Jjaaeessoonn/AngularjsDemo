@@ -1,12 +1,11 @@
 //IIFE keeps all vars in hera as local and disappears after it's called; avoids collisions when code is minified and prevenst making global vars
-
+'use strict';
 (function(){
-	'use strict';
 	angular
 		.module("app")
 		.config(routing);
 
-		//routing.$inject = ['$routeProvider'];
+		routing.$inject = ['$routeProvider'];
 
 		function routing($routeProvider) {
 			$routeProvider

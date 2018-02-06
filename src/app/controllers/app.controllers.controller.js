@@ -1,43 +1,44 @@
-
+'use strict';
 (function() {
-	'use strict';
-	
 	angular
 		.module("app")
 		.controller("simpleController", simpleController);
 
-		//simpleController.$inject = ['$scope','simpleFactory'];
+		simpleController.$inject = ['simpleFactory'];
 		
-		function simpleController($scope, simpleFactory) {
+		function simpleController(simpleFactory) {
 			var vm = this;
+			vm.search = "";
+			vm.name = "";
+			vm.newCustomer = {name: "", city: ""};
 			vm.customers = simpleFactory.getCustomers();
 			vm.orders = simpleFactory.getOrders();
 			vm.addCustomer = addCustomer;
 			vm.removeCustomer = removeCustomer;
 
 			function addCustomer() {
-				vm.customers.push(
-					{
-						name: $scope.newCustomer.name,
-						city: $scope.newCustomer.city
-					}
-				);
+				if (vm.newCustomer.name != "" && vm.newCustomer.city != "") {
+					vm.customers.push(vm.newCustomer);
+				}
+				else {
+					alert("Please fill out the name and city fields!");
+				}
 			};
 
-			function removeCustomer(cust) {
+			function removeCustomer() {
 				var temp = {};
 				var counter = 0;
 				for (var x in vm.customers) {
-					if (x.name.toUpperCase() == cust.toUpperCase()) {
+					if (x.name.toUpperCase() == vm.name.toUpperCase()) {
 						temp = x;
 					}
-					counter++;
+					counter+=1;
 
 				}
 				if (Object.keys(temp).length === 0 && temp.constructor === Object) {
-					return;  // no matching entries
+					return;  // if still an empty object
 				}
-				vm.customers.splice(counter, 0);
+				vm.customers.splice(counter, 1);
 			}
 
 			
