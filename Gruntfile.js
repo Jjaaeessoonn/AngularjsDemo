@@ -48,10 +48,10 @@ module.exports = function(grunt) {
 		uglify: {
 			dist: {
 				files: {
-					'build/dist/app/app.module.js': ['src/app/app.module.js'],
-					'build/dist/app/app.config.js': ['src/app/app.config.js'],
-					'build/dist/app/services/app.services.factory.js': ['src/app/services/app.services.factory.js'],
-					'build/dist/app/controllers/app.controllers.controller.js': ['src/app/controllers/app.controllers.controller.js']
+					'build/dist/app/app.module.js': ['src/app/app.module.annotated.js'],
+					'build/dist/app/app.config.js': ['src/app/app.config.annotated.js'],
+					'build/dist/app/services/app.services.factory.js': ['src/app/services/app.services.factory.annotated.js'],
+					'build/dist/app/controllers/app.controllers.controller.js': ['src/app/controllers/app.controllers.controller.annotated.js']
 				}
 			}
 		},
@@ -69,6 +69,20 @@ module.exports = function(grunt) {
 				files: ['src/*.html', 'src/partials/*.html'],
 				tasks: ['copy:main']
 			}
+		},
+
+		ngAnnotate: {
+			options: {
+				singleQuotes: true,
+			},
+			app: {
+				files: {
+					'src/app/app.module.annotated.js': ['src/app/app.module.js'],
+					'src/app/app.config.annotated.js': ['src/app/app.config.js'],
+					'src/app/services/app.services.factory.annotated.js': ['src/app/services/app.services.factory.js'],
+					'src/app/controllers/app.controllers.controller.annotated.js': ['src/app/controllers/app.controllers.controller.js']
+				},
+			}
 		}
 	});
 
@@ -79,9 +93,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-ng-annotate');
 
 
-	grunt.registerTask('default', ['concat', 'sass', 'cssmin', 'uglify', 'watch']);
+	grunt.registerTask('default', ['concat', 'sass', 'cssmin', 
+		'ngAnnotate', 'uglify', 'watch']);
 
 
 };

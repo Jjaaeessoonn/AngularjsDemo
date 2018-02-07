@@ -5,7 +5,8 @@ var gulp = require('gulp'),
 	imagemin = require('gulp-imagemin'),
 	sass = require('gulp-sass'),
 	concat = require('gulp-concat'),
-	browserSync = require('browser-sync').create();
+	browserSync = require('browser-sync').create(),
+	ngAnnotate = require('gulp-ng-annotate');
 
 
 gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], function(){
@@ -32,6 +33,7 @@ gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], functi
 // JS
 gulp.task('scripts', function(){
 	gulp.src('src/app/**/*.js')  //ask how to change this to include all children directories too
+	.pipe(ngAnnotate())
 	.pipe(uglify())
 	.pipe(gulp.dest('build/dist/app'));
 });
