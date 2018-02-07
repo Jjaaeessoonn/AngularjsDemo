@@ -18,6 +18,15 @@
 
 			function addCustomer() {
 				if (vm.newCustomer.name != "" && vm.newCustomer.city != "") {
+					var index = 0;
+					for ( index in vm.customers ){
+						if (vm.customers[index].name.toUpperCase() == vm.newCustomer.name.toUpperCase()){
+							alert("Can't add duplicate customer name!");
+							return;
+						}
+						//console.log(vm.customers[index]);
+					}
+
 					vm.customers.push(vm.newCustomer);
 				}
 				else {
@@ -26,18 +35,27 @@
 			};
 
 			function removeCustomer() {
-				var temp = {};
-				var counter = 0;
-				for (var x in vm.customers) {
-					if (x.name.toUpperCase() == vm.name.toUpperCase()) {
-						temp = x;
-					}
-					counter+=1;
+				//var temp = {};
+				var counter = -1;
 
+				if (vm.name == "") {
+					return;
 				}
-				if (Object.keys(temp).length === 0 && temp.constructor === Object) {
+				for (var x in vm.customers) {
+					if (vm.customers[x].name.toUpperCase() == vm.name.toUpperCase()) {
+						//temp = x;
+						counter = x;
+						break;
+					}
+					
+				}
+				if (counter < 0){
+					alert("Person not found!");
+					return;
+				}
+				/*if (Object.keys(temp).length === 0 && temp.constructor === Object) {
 					return;  // if still an empty object
-				}
+				}*/
 				vm.customers.splice(counter, 1);
 			}
 

@@ -13,6 +13,8 @@ gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], functi
 		server: "./build/dist"
 	});
 
+	// watch files for changes and update dist directory 
+
 	gulp.watch('src/scss/*.scss', ['styles']);
 	gulp.watch('src/app/**/*.js', ['scripts']);
 	gulp.watch('src/*.html')
