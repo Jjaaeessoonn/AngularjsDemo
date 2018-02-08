@@ -53,9 +53,7 @@
 					alert("Person not found!");
 					return;
 				}
-				/*if (Object.keys(temp).length === 0 && temp.constructor === Object) {
-					return;  // if still an empty object
-				}*/
+				
 				vm.customers.splice(counter, 1);
 			}
 
