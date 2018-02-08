@@ -6,6 +6,7 @@
 
 		simpleController.$inject = ['simpleFactory'];
 		
+		/* @ngInject */
 		function simpleController(simpleFactory) {
 			var vm = this;
 			vm.search = "";
@@ -35,7 +36,6 @@
 			};
 
 			function removeCustomer() {
-				//var temp = {};
 				var counter = -1;
 
 				if (vm.name == "") {
@@ -53,9 +53,7 @@
 					alert("Person not found!");
 					return;
 				}
-				/*if (Object.keys(temp).length === 0 && temp.constructor === Object) {
-					return;  // if still an empty object
-				}*/
+				
 				vm.customers.splice(counter, 1);
 			}
 

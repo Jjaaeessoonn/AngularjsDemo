@@ -5,6 +5,7 @@
 		.module("app")
 		.factory("simpleFactory", simpleFactory);
 		
+		/* @ngInject */
 		function simpleFactory(){
 			var factory = {
 				customers: [

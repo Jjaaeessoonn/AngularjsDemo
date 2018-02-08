@@ -1,10 +1,22 @@
-
-//(function(){
+/** jsDoc Practice
+* Simple Factory
+* @namespace Factories
+*/
+(function(){
 	'use strict';
 	angular
 		.module("app")
 		.factory("simpleFactory", simpleFactory);
 		
+		
+		/**
+		* @namespace simpleFactory
+		* @desc A test factory
+		* @memberOf Factories
+		*/
+
+
+		/* @ngInject */
 		function simpleFactory(){
 			var factory = {
 				customers: [
@@ -24,12 +36,28 @@
 
 			return factory;
 
+
+			/**
+			* @namespace getCustomers
+			* @desc Returns customers
+			* @param {void} none
+			* @returns Array[Obj]
+			* @memberOf simpleFactory
+			*/
 			function getCustomers() {
 				return factory.customers;
 			};
+
+			/**
+			* @namespace getOrders
+			* @desc Returns orders
+			* @param {void} none
+			* @returns Array[obj]
+			* @memberOf simpleFactory
+			*/
 			function getOrders() {
 				return factory.orders;
 			};
 		}
 
-//})();
+})();

@@ -8,17 +8,20 @@ var gulp = require('gulp'),
 	browserSync = require('browser-sync').create(),
 	ngAnnotate = require('gulp-ng-annotate');
 
+var dest = 'build/dist/';
+
+
 
 gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], function(){
 	browserSync.init({
-		server: "./build/dist"
+		server: "./" + dest
 	});
 
 	// watch files for changes and update dist directory 
 
 	gulp.watch('src/scss/*.scss', ['styles']);
 	gulp.watch('src/app/**/*.js', ['scripts']);
-	gulp.watch('src/*.html')
+	gulp.watch('src/layout/*.html')
 		.on('change', function(){
 			browserSync.reload;
 			gulp.start('html');
@@ -33,9 +36,11 @@ gulp.task('serve', ['copy', 'styles', 'scripts', 'html', 'partialViews'], functi
 // JS
 gulp.task('scripts', function(){
 	gulp.src('src/app/**/*.js')  //ask how to change this to include all children directories too
-	.pipe(ngAnnotate())
+	.pipe(ngAnnotate({
+		add: true
+	}))
 	.pipe(uglify())
-	.pipe(gulp.dest('build/dist/app'));
+	.pipe(gulp.dest(dest + 'app'));
 });
 
 
@@ -44,30 +49,30 @@ gulp.task('styles', function(){
 	return gulp.src('src/scss/*.scss')
 		.pipe(concat('main.css'))
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('build/dist/css'))
+		.pipe(gulp.dest(dest + 'css'))
 		.pipe(browserSync.stream());
 });
 
 // INDEX HTML
 gulp.task('html', function(){
-	gulp.src('src/*.html')
-	.pipe(gulp.dest('build/dist'));
+	gulp.src('src/layout/*.html')
+	.pipe(gulp.dest(dest));
 });
 
 
 // PARTIALVIEWS HTML
 gulp.task('partialViews', function(){
 	gulp.src('src/partials/**/*.*')
-	.pipe(gulp.dest('build/dist/partials'));
+	.pipe(gulp.dest(dest + 'partials'));
 });
 
 // need a task to transfer files into build/dist folder!
 gulp.task('copy', function(){
 	gulp.src('src/scripts/**/*.*')
-	.pipe(gulp.dest('build/dist/scripts'));
+	.pipe(gulp.dest(dest + 'scripts'));
 
 	gulp.src('src/scss/**/*.*')
-	.pipe(gulp.dest('build/dist/scss'));
+	.pipe(gulp.dest(dest + 'scss'));
 });
 
 

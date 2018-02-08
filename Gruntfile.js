@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: 'src',
-					src: ['*.html', 'partials/*', 'scripts/*'],
+					src: ['layout/*.html', 'partials/*', 'scripts/*'],
 					dest: 'build/dist/',
 				}],
 			}
@@ -50,8 +50,8 @@ module.exports = function(grunt) {
 				files: {
 					'build/dist/app/app.module.js': ['src/app/app.module.annotated.js'],
 					'build/dist/app/app.config.js': ['src/app/app.config.annotated.js'],
-					'build/dist/app/services/app.services.factory.js': ['src/app/services/app.services.factory.annotated.js'],
-					'build/dist/app/controllers/app.controllers.controller.js': ['src/app/controllers/app.controllers.controller.annotated.js']
+					'build/dist/app/services/app.services.js': ['src/app/services/app.services.annotated.js'],
+					'build/dist/app/controllers/app.controller.js': ['src/app/controllers/app.controller.annotated.js']
 				}
 			}
 		},
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 				tasks: ['uglify:dist']
 			},
 			moveHtml: {
-				files: ['src/*.html', 'src/partials/*.html'],
+				files: ['src/layout/*.html', 'src/partials/*.html'],
 				tasks: ['copy:main']
 			}
 		},
@@ -79,8 +79,8 @@ module.exports = function(grunt) {
 				files: {
 					'src/app/app.module.annotated.js': ['src/app/app.module.js'],
 					'src/app/app.config.annotated.js': ['src/app/app.config.js'],
-					'src/app/services/app.services.factory.annotated.js': ['src/app/services/app.services.factory.js'],
-					'src/app/controllers/app.controllers.controller.annotated.js': ['src/app/controllers/app.controllers.controller.js']
+					'src/app/services/app.services.annotated.js': ['src/app/services/app.services.js'],
+					'src/app/controllers/app.controller.annotated.js': ['src/app/controllers/app.controller.js']
 				},
 			}
 		}
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 
 
 	grunt.registerTask('default', ['concat', 'sass', 'cssmin', 
-		'ngAnnotate', 'uglify', 'watch']);
+		'ngAnnotate', 'uglify', 'copy', 'watch']);
 
 
 };

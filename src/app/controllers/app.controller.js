@@ -6,6 +6,7 @@
 
 		simpleController.$inject = ['simpleFactory'];
 		
+		/* @ngInject */
 		function simpleController(simpleFactory) {
 			var vm = this;
 			vm.search = "";
@@ -35,7 +36,6 @@
 			};
 
 			function removeCustomer() {
-				//var temp = {};
 				var counter = -1;
 
 				if (vm.name == "") {
